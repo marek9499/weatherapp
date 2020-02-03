@@ -6,30 +6,83 @@
 	<title>Home</title>
 	<link rel="stylesheet" type="text/css" href="public/css/css.css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 
 <body>
 	<main>
 		<header>
-			<div class="header__heading">
-				<h1>weatherro - your weather assistant</h1>
-			</div>
-			<div class="header__icons">
-				<!-- ikonka xD -->
+			<div class="header__container">
+				<div class="header__heading">
+					<h1>weatherro - your weather assistant</h1>
+				</div>
+				<div class="icons icons--smaller">
+					<div class="icons--moon"></div>
+				</div>
+				<!--
+				<div class="header__icons">
+					<div></div>
+				</div>
+				-->
 			</div>
 		</header>
 
 		<div class="wrapper">
+
 			<section class="weather">
+				<div class="weather__box">
+					<p class="weather__checkText">SPRAWDŹ POGODĘ</p>
+					<input type="text" placeholder="wpisz nazwę miasta" class="weather__input">
 
+					<div class="weather__cities">
+						<button class="weather__city btn">Warszawa</button>
+						<button class="weather__city btn">Radom</button>
+						<button class="weather__city btn">Kielce</button>
+						<button class="weather__city btn">Słupsk</button>
+						<button class="weather__city btn">Zamość</button>
+						<button class="weather__city btn">Władysławowo</button>
+						<button class="weather__city btn">Ustka</button>
+					</div>
+				</div>
+
+
+
+				<div class="weather__box weather__moreinfo">
+					<div class="weather__date">
+						<p class="weather__dateCityInfo">Obecne miasto</p>
+						<p class="weather__dateTime">Deszczowo</p>
+					</div>
+
+					<div class="weather__town">
+						<p class="weather__currentCity">Warszawa</p>
+						<div class="icons icons--bigger">
+							<div class="icons--rainy"></div>
+						</div>
+					</div>
+
+					<section class="details">
+						<div class="details__box">
+							<p class="details__desc">Temperatura</p>
+							<p class="details__info">25°C</p>
+						</div>
+						<div class="details__box">
+							<p class="details__desc">Szansa opadów</p>
+							<p class="details__info">10%</p>
+						</div>
+						<div class="details__box">
+							<p class="details__desc">Ciśnienie</p>
+							<p class="details__info">1024hPa</p>
+						</div>
+					</section>
+				</div>
 			</section>
-
 		</div>
 	</main>
 
-
+	<script type="text/javascript">
+		//document.querySelectorAll("*").forEach(x => x.style.border = "1px solid red");
+	</script>
 	<!--
 	<p>{{foo}}</p>
 	<p>{{bar}}</p>

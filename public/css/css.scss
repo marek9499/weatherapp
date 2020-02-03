@@ -76,21 +76,197 @@ video {
     background: transparent;
 }
 
+@font-face {
+    font-family: "Lato";
+    src: url("../fonts/Lato-Regular.ttf") format("truetype");
+}
+
 body {
     margin: 0 auto;
-    background-color: #f8f8fa;
+    background-color: #e2e2e477;
 }
 
 main {
-    //width:
+    font-family: Lato, sans-serif;
 }
 
 header {
     width: 100%;
     background-color: white;
+    box-shadow: 0px -3px 23px -1px rgba(0, 0, 0, 0.75);
 
     h1 {
-        padding: 20px;
-        font-family: "Lato" sans-serif;
+        font-size: 20px;
     }
+}
+
+.header {
+    &__container {
+        > div {
+            > * {
+                margin: 20px;
+            }
+        }
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: auto;
+        width: 100%; //width 100% due to mobile-first
+    }
+}
+
+.icons {
+    > div {
+        background-size: 100% 100%;
+    }
+    &--rainy {
+        background-image: url("../img/rain.png");
+    }
+    &--moon {
+        background-image: url("../img/moon2.png");
+        &:hover {
+            cursor: pointer;
+            background-image: url("../img/moon.png");
+        }
+    }
+    &--bigger {
+        > div {
+            width: 65px;
+            height: 65px;
+        }
+    }
+    &--smaller {
+        > div {
+            width: 25px;
+            height: 25px;
+        }
+    }
+}
+
+.weather {
+    display: flex;
+    flex-direction: column;
+    &__checkText {
+        font-weight: bold;
+        font-size: 17px;
+    }
+
+    &__input {
+        box-sizing: border-box;
+        border: none;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        border-radius: 20px;
+        background-color: #e0e0e0ec;
+        padding: 20px;
+        font-size: 16px;
+        &::placeholder {
+            font-family: Lato;
+            color: #3b3b3b;
+        }
+    }
+
+    &__box {
+        margin: 20px;
+        &:nth-child(2) {
+            background-color: white;
+        }
+    }
+
+    &__cities {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    &__city {
+        flex: 0 45%;
+        &:not(:nth-child(1))
+        {
+            margin-top: 15px;
+        }
+        /*
+        &:not(:nth-child(1)) + &:not(:nth-child(2)) {
+            margin-top: 15px;
+        }
+        */
+    }
+
+    &__date {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap-reverse;
+    }
+
+    &__town {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+
+    &__currentCity {
+        font-size: 35px;
+    }
+
+    &__moreinfo {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0px 0px 11px -4px rgba(0, 0, 0, 0.75);
+    }
+
+    &__dateCityInfo {
+        color: #9d9d9d;
+    }
+
+    &__dateTime {
+        font-weight: bold;
+    }
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    &__box {
+        box-shadow: 0px 0px 11px -4px rgba(0, 0, 0, 0.75);
+        padding: 10px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        &:not(:nth-child(1)) {
+            margin-top: 20px;
+        }
+    }
+
+    &__desc {
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    &__info {
+        //margin-top: 10px;
+        font-size: 30px;
+        font-weight: bold;
+    }
+}
+
+.btn {
+    font-family: Lato;
+    font-size: 19px;
+    color: #000000;
+    border: 2px solid #27272752;
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
