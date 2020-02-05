@@ -345,4 +345,10 @@ header h1 {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+@media only screen and (min-width: 480px) {
+  .btn {
+    background-color: red;
+  }
+}
 /*# sourceMappingURL=css.css.map */
