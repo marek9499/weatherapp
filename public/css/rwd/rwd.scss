@@ -1,15 +1,103 @@
 @media only screen and (min-width: 480px) {
-    .btn
-    {
-        background-color: red;;
+    .weather {
+        &__cities {
+            flex-direction: row;
+        }
+
+        &__city {
+            &:not(:nth-child(1)) {
+                margin-top: 0;
+            }
+            &:nth-child(3),
+            &:nth-child(4) {
+                margin-top: 15px;
+            }
+        }
     }
 }
 
 @media only screen and (min-width: 768px) {
+    .header {
+        &__container {
+            width: 700px;
+            > div {
+                > * {
+                    margin-left: 0;
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+    .wrapper {
+        width: 700px;
+        margin: 0 auto;
+    }
+
+    .weather {
+        flex-direction: row;
+        justify-content: center;
+
+        &__cities {
+            flex-direction: column;
+        }
+
+        &__city {
+            &:not(:nth-child(1)) {
+                margin-top: 15px;
+            }
+        }
+
+        &__box {
+            margin: 0;
+        }
+
+        &__check {
+            flex-basis: 40%;
+            padding-top: 40px;
+        }
+
+        &__moreinfo {
+            padding-top: 40px;
+            flex-basis: 60%;
+            margin-left: 50px;
+            z-index: -1;
+        }
+    }
 }
 
 @media only screen and (min-width: 992px) {
+    .wrapper {
+        width: 930px;
+    }
+    .header {
+        &__container {
+            width: 930px;
+        }
+    }
+    .details
+    {
+        flex-direction: row;
+        justify-content: space-between;
+        &__box
+        {
+            flex-direction: column;
+            height: 90px;
+            width: 130px;
+            &:not(:nth-child(1)) {
+                margin-top: 0;
+            }
+        }
+    }
 }
 
 @media only screen and (min-width: 1200px) {
+    .wrapper {
+        width: 1100px;
+    }
+    .header {
+        &__container {
+            width: 1100px;
+        }
+    }
 }
