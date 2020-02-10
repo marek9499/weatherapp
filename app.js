@@ -12,6 +12,9 @@ app.engine('.hbs', expbs({
 }));
 app.use(bodyParser.json())
 app.use(cookieParser());
+
+
+
 app.set('view engine', '.hbs');
 app.use('/api', routes);
 app.use('/public', express.static('public'))

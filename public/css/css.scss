@@ -178,16 +178,17 @@ header {
     &__cities {
         margin-top: 10px;
         display: flex;
-        flex-direction: column;
+        flex-direction: column-reverse;
         flex-wrap: wrap;
         justify-content: space-between;
     }
 
     &__city {
         flex: 0 45%;
-        &:not(:nth-child(1))
+        //margin-top: 15px;
+        &:not(:last-child)
         {
-            margin-top: 15px;
+            margin-top: 10px;
         }
     }
 

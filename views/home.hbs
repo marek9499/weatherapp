@@ -34,10 +34,12 @@
 					</form>
 
 					<div class="weather__cities">
+						<!--
 						<button class="weather__city btn btn-white">Warszawa</button>
 						<button class="weather__city btn btn-white">Radom</button>
 						<button class="weather__city btn btn-white">Kielce</button>
 						<button class="weather__city btn btn-white">Władysławowo</button>
+						-->
 					</div>
 				</div>
 
@@ -46,7 +48,7 @@
 				<div class="weather__box weather__moreinfo">
 					<div class="weather__date">
 						<p class="weather__dateCityInfo">Obecne miasto</p>
-						<p class="weather__dateTime">Deszczowo</p>
+						<p class="weather__dateTime">X</p>
 					</div>
 
 					<div class="weather__town">
@@ -82,76 +84,66 @@
 	<script type="module">
 		import '../public/js/Chart.js';
 		import * as Request from '../public/js/Request.js';
-		import '../public/js/GeolocationService.js';
+		import * as Geolocation from '../public/js/GeolocationService.js';
 		import * as Cookie from '../public/js/Cookie.js';
+		import '../public/js/Form.js';
 
 		window.addEventListener("DOMContentLoaded", event => {
+			/*
+			Error: when user visits page at the first time, there is JSON error parsing
+			*/
+
 			const currentCity = JSON.parse(Cookie.get('weatherLocation')).city;
+			console.log(currentCity);
 
+			Request.getShortWeatherData(currentCity)
+				.then(data => {
+					prepareChartData(data);
+				}).catch(ex => console.log('error', ex));
 
-			Request.getShortWeatherData(currentCity).then(data => {
-				let chartData = [];
-
-				for (let i = 0; i < data.list.length; i++) {
-					chartData.push(data.list[i]);
-					if (i == 8) {
-						createChart(chartData);
-						break;
-					}
-				}
-			});
-
-			Request.getExtendedWeatherDataNow(currentCity).then(data => {
-				fillWeatherInfo(
-					data.name,
-					data.main.temp,
-					data.main.feels_like,
-					data.weather.description,
-					data.main.humidity,
-					data.sys.sunset);
-			});
+			Request.getExtendedWeatherDataNow(currentCity)
+				.then(data => {
+					fillWeatherInfo(data);
+				}).catch(ex => console.log('error2', ex));
 
 			document.querySelector("form").addEventListener("submit", (e) => {
 				let inputCity = document.querySelector(".weather__input").value;
 
 				e.preventDefault();
 
-				fetch(e.target.action, {
-					method: "POST",
-					headers: {
-						'Accept': 'application/json',
-						'Content-Type': 'application/json'
-					},
-					body:
-						JSON.stringify({
-							weather__cityname: inputCity;
-						})
-				})
+				fetch(e.target.action,
+					{
+						method: "POST",
+						headers:
+						{
+							'Accept': 'application/json',
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({ weather__cityname: inputCity })
+					})
 					.then(resp => resp.json())
 					.then(data => {
-						fillWeatherInfo(
-							data.name,
-							data.main.temp,
-							data.main.feels_like,
-							data.weather.description,
-							data.main.humidity,
-							data.sys.sunset);
+						fillWeatherInfo(data);
 					})
 					.then(
 						Request.getShortWeatherData(inputCity).then(data => {
-							let chartData = [];
-
-							for (let i = 0; i < data.list.length; i++) {
-								chartData.push(data.list[i]);
-								if (i == 8) {
-									createChart(chartData);
-									break;
-								}
-							}
+							prepareChartData(data);
 						})
 					);
 			});
 		});
+
+		function prepareChartData(data) {
+			let chartData = [];
+
+			for (let i = 0; i < data.list.length; i++) {
+				chartData.push(data.list[i]);
+				if (i == 8) {
+					createChart(chartData);
+					break;
+				}
+			}
+		}
 
 		function createChart(data) {
 			var ctx = document.getElementById('myChart');
@@ -215,19 +207,26 @@
 			});
 		}
 
-		function fillWeatherInfo(city, temp, temp_feels_like, description, humidity, sunset) {
-			temp = temp.toFixed(0);
-			temp_feels_like = temp_feels_like.toFixed(0);
-			let timestamp = new Date(sunset * 1000);
-			sunset = timestamp.getHours() + ":" + timestamp.getMinutes();
+		function fillWeatherInfo(data) {
+			let weatherData = {
+			};
+
+			weatherData['city'] = data.name;
+			weatherData['temp'] = data.main.temp.toFixed(0);
+			weatherData['temp_feels_like'] = data.main.feels_like.toFixed(0);
+			weatherData['description'] = data.weather[0].description;
+			weatherData['humidity'] = data.main.humidity;
+			weatherData['sunset'] = data.sys.sunset;
 
 
+			let timestamp = new Date(weatherData['sunset'] * 1000);
+			weatherData['sunset'] = timestamp.getHours() + ":" + timestamp.getMinutes();
 
-			document.querySelector('.weather__currentCity').textContent = city;
-			document.querySelectorAll('.details__info')[0].innerHTML = temp + `°C <span>(${temp_feels_like}°C)</span>`;
-			document.querySelector('.weather__dateTime').textContent = description;
-			document.querySelectorAll('.details__info')[1].innerText = humidity + "%";
-			document.querySelectorAll('.details__info')[2].textContent = sunset;
+			document.querySelector('.weather__currentCity').textContent = weatherData['city'];
+			document.querySelectorAll('.details__info')[0].innerHTML = weatherData['temp'] + `°C <span>(${weatherData['temp_feels_like']}°C)</span>`;
+			document.querySelector('.weather__dateTime').textContent = weatherData['description'];
+			document.querySelectorAll('.details__info')[1].innerText = weatherData['humidity'] + "%";
+			document.querySelectorAll('.details__info')[2].textContent = weatherData['sunset'];
 		}
 
 	</script>

@@ -12,14 +12,10 @@ router.get('/:city/now', (req, res) => {
 
     axios({
         method: 'get',
-        url: weatherURLs.currentWeatherURL() + city
+        url: weatherURLs.currentWeatherURL() + encodeURIComponent(city)
     }).then(response => {
         res.json(response.data);
     });
-});
-
-router.get('/currentCity', (req, res) => {
-    res.send(req.cookies);
 });
 
 /*
@@ -31,7 +27,7 @@ router.get('/:city/hourly', (req, res) => {
 
     axios({
         method: 'get',
-        url: weatherURLs.hourlyWeatherURL() + city
+        url: weatherURLs.hourlyWeatherURL() + encodeURIComponent(city)
     }).then(response => {
         res.json(response.data);
     });
@@ -41,7 +37,7 @@ router.get('/:city/hourly', (req, res) => {
 router.get('/weather/:city', (req, res) => {
     axios({
         method: 'get',
-        url: weatherURLs.currentWeatherURL() + req.params.city
+        url: weatherURLs.currentWeatherURL() + encodeURIComponent(req.params.city)
     }).then(response => {
         res.json(response.data);
     });
@@ -55,10 +51,23 @@ weather for now
 router.post('/weather', (req, res) => {
     axios({
         method: 'get',
-        url: weatherURLs.currentWeatherURL() + req.body.weather__cityname
+        url: weatherURLs.currentWeatherURL() + encodeURIComponent(req.body.weather__cityname)
     }).then(response => {
         res.json(response.data);
     });
 });
+
+
+
+router.get('/dupa/:city', (req, res) => {
+    res.send("OK" +encodeURIComponent(req.params.city));
+});
+
+
+
+
+
+
+
 
 module.exports = router;
