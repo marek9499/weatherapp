@@ -28,13 +28,16 @@
 			<section class="weather">
 				<div class="weather__box weather__check">
 					<p class="weather__checkText">SPRAWDŹ POGODĘ</p>
-					<input type="text" placeholder="wpisz nazwę miasta" class="weather__input">
+					<form action="http://127.0.0.1:5500/api/weather" method="POST">
+						<input type="text" placeholder="wpisz nazwę miasta" class="weather__input"
+							name="weather__cityname">
+					</form>
 
 					<div class="weather__cities">
-						<button class="weather__city btn">Warszawa</button>
-						<button class="weather__city btn">Radom</button>
-						<button class="weather__city btn">Kielce</button>
-						<button class="weather__city btn">Władysławowo</button>
+						<button class="weather__city btn btn-white">Warszawa</button>
+						<button class="weather__city btn btn-white">Radom</button>
+						<button class="weather__city btn btn-white">Kielce</button>
+						<button class="weather__city btn btn-white">Władysławowo</button>
 					</div>
 				</div>
 
@@ -47,7 +50,7 @@
 					</div>
 
 					<div class="weather__town">
-						<p class="weather__currentCity">Warszawa</p>
+						<p class="weather__currentCity"></p>
 						<div class="icons icons--bigger">
 							<div class="icons--rainy"></div>
 						</div>
@@ -55,30 +58,179 @@
 
 					<section class="details">
 						<div class="details__box">
-							<p class="details__desc">Temperatura</p>
-							<p class="details__info">25°C</p>
+							<p class="details__desc">Temperatura (odczuwalna)</p>
+							<p class="details__info">X<span>X</span></p>
 						</div>
 						<div class="details__box">
-							<p class="details__desc">Szansa opadów</p>
-							<p class="details__info">10%</p>
+							<p class="details__desc">Wilgotność</p>
+							<p class="details__info">X</p>
 						</div>
 						<div class="details__box">
-							<p class="details__desc">Ciśnienie</p>
-							<p class="details__info">1024hPa</p>
+							<p class="details__desc">Zachód słońca</p>
+							<p class="details__info">X</p>
 						</div>
+					</section>
+
+					<section class="chart">
+						<canvas id="myChart" width="400" height="400"></canvas>
 					</section>
 				</div>
 			</section>
 		</div>
 	</main>
 
-	<script type="text/javascript">
-		//document.querySelectorAll("*").forEach(x => x.style.border = "1px solid red");
+	<script type="module">
+		import '../public/js/Chart.js';
+		import * as Request from '../public/js/Request.js';
+		import '../public/js/GeolocationService.js';
+		import * as Cookie from '../public/js/Cookie.js';
+
+		window.addEventListener("DOMContentLoaded", event => {
+			const currentCity = JSON.parse(Cookie.get('weatherLocation')).city;
+
+
+			Request.getShortWeatherData(currentCity).then(data => {
+				let chartData = [];
+
+				for (let i = 0; i < data.list.length; i++) {
+					chartData.push(data.list[i]);
+					if (i == 8) {
+						createChart(chartData);
+						break;
+					}
+				}
+			});
+
+			Request.getExtendedWeatherDataNow(currentCity).then(data => {
+				fillWeatherInfo(
+					data.name,
+					data.main.temp,
+					data.main.feels_like,
+					data.weather.description,
+					data.main.humidity,
+					data.sys.sunset);
+			});
+
+			document.querySelector("form").addEventListener("submit", (e) => {
+				let inputCity = document.querySelector(".weather__input").value;
+
+				e.preventDefault();
+
+				fetch(e.target.action, {
+					method: "POST",
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+					},
+					body:
+						JSON.stringify({
+							weather__cityname: inputCity;
+						})
+				})
+					.then(resp => resp.json())
+					.then(data => {
+						fillWeatherInfo(
+							data.name,
+							data.main.temp,
+							data.main.feels_like,
+							data.weather.description,
+							data.main.humidity,
+							data.sys.sunset);
+					})
+					.then(
+						Request.getShortWeatherData(inputCity).then(data => {
+							let chartData = [];
+
+							for (let i = 0; i < data.list.length; i++) {
+								chartData.push(data.list[i]);
+								if (i == 8) {
+									createChart(chartData);
+									break;
+								}
+							}
+						})
+					);
+			});
+		});
+
+		function createChart(data) {
+			var ctx = document.getElementById('myChart');
+
+			let weatherData = {
+				temps: [],
+				tempFeelsLike: [],
+				hours: []
+			};
+
+			for (const currentData of data) {
+				weatherData.temps.push(currentData.main.temp),
+					weatherData.tempFeelsLike.push(currentData.main.feels_like),
+					weatherData.hours.push(currentData.dt_txt.slice(11).slice(0, -3))
+			}
+
+
+			var myChart = new Chart(ctx, {
+				type: 'line',
+				data: {
+					labels: weatherData.hours,
+					datasets: [{
+						label: 'temperatura',
+						data: weatherData.temps,
+						backgroundColor: 'red',
+						borderColor: 'orange',
+						fill: false
+					},
+					{
+						label: 'odczuwalna',
+						data: weatherData.tempFeelsLike,
+						backgroundColor: 'orange',
+						borderColor: 'red',
+						fill: false
+					}]
+				},
+				options: {
+					responsive: true,
+					showTooltips: true,
+					scales: {
+						yAxes: [{
+							ticks: {
+								beginAtZero: true
+							}
+						}]
+					},
+					legend: {
+						position: 'bottom'
+					},
+					tooltips: {
+						backgroundColor: '#FFF',
+						titleFontSize: 16,
+						titleFontColor: '#0066ff',
+						bodyFontColor: '#000',
+						bodyFontSize: 14,
+						displayColors: false,
+						borderColor: 'black',
+						borderWidth: 1
+					}
+				}
+			});
+		}
+
+		function fillWeatherInfo(city, temp, temp_feels_like, description, humidity, sunset) {
+			temp = temp.toFixed(0);
+			temp_feels_like = temp_feels_like.toFixed(0);
+			let timestamp = new Date(sunset * 1000);
+			sunset = timestamp.getHours() + ":" + timestamp.getMinutes();
+
+
+
+			document.querySelector('.weather__currentCity').textContent = city;
+			document.querySelectorAll('.details__info')[0].innerHTML = temp + `°C <span>(${temp_feels_like}°C)</span>`;
+			document.querySelector('.weather__dateTime').textContent = description;
+			document.querySelectorAll('.details__info')[1].innerText = humidity + "%";
+			document.querySelectorAll('.details__info')[2].textContent = sunset;
+		}
+
 	</script>
-	<!--
-	<p>{{foo}}</p>
-	<p>{{bar}}</p>
--->
 </body>
 
 </html>

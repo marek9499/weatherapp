@@ -79,14 +79,27 @@
     {
         flex-direction: row;
         justify-content: space-between;
+        margin-top: 35px;
         &__box
         {
             flex-direction: column;
-            height: 90px;
-            width: 130px;
+            margin-top: 0;
+            height: 70px;
+            width: 100%;
             &:not(:nth-child(1)) {
                 margin-top: 0;
             }
+
+            &:nth-child(2)
+            {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+        }
+        
+        &__desc
+        {
+            font-size: 15px;
         }
     }
 }

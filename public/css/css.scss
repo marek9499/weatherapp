@@ -214,7 +214,7 @@ header {
         padding: 20px;
         display: flex;
         flex-direction: column;
-        box-shadow: 0px 0px 11px -4px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 8px -4px rgba(0, 0, 0, 0.75);
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
     }
@@ -232,7 +232,7 @@ header {
     display: flex;
     flex-direction: column;
     &__box {
-        box-shadow: 0px 0px 11px -4px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 0px 8px -4px rgba(0, 0, 0, 0.75);
         padding: 10px;
         border-radius: 10px;
         display: flex;
@@ -252,20 +252,32 @@ header {
         //margin-top: 10px;
         font-size: 30px;
         font-weight: bold;
+        span
+        {
+            font-size: 20px;
+        }
     }
+}
+
+.chart
+{
+    margin-top: 20px;
 }
 
 .btn {
     font-family: Lato;
     font-size: 19px;
-    color: #000000;
-    border: 2px solid #27272752;
-    background-color: transparent;
+    border: 1px solid #86868652;
     border-radius: 10px;
     padding: 10px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.btn-white
+{
+    background-color: white;
 }
 
 @import "rwd/rwd.scss";
