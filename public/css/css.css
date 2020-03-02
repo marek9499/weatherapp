@@ -149,6 +149,15 @@ header h1 {
   height: 25px;
 }
 
+.darkmode body {
+  background-color: black;
+}
+
+.darkmode .wrapper, .darkmode header {
+  -webkit-filter: invert(1);
+          filter: invert(1);
+}
+
 .weather {
   display: -webkit-box;
   display: -ms-flexbox;

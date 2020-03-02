@@ -144,6 +144,17 @@ header {
     }
 }
 
+.darkmode
+{
+    body
+    {
+        background-color: black;
+    }
+    .wrapper, header
+    {
+        filter: invert(1);
+    }
+}
 .weather {
     display: flex;
     flex-direction: column;

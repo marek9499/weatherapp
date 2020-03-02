@@ -87,14 +87,14 @@
 		import * as Geolocation from '../public/js/GeolocationService.js';
 		import * as DOM from '../public/js/DOM.js';
 		import '../public/js/Form.js';
+		import '../public/js/Darkmode.js';
 
 		window.addEventListener("DOMContentLoaded", event => {
 
-			document.querySelector("form").addEventListener("submit", (e) => {
-				let inputCity = document.querySelector(".weather__input").value;
-
+			document.querySelector("form").addEventListener("submit", e => {
 				e.preventDefault();
 
+				let inputCity = document.querySelector(".weather__input").value;
 				fetch(e.target.action,
 					{
 						method: "POST",
