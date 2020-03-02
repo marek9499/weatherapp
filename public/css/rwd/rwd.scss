@@ -60,6 +60,15 @@
             z-index: -1;
         }
     }
+
+    button
+    {
+        transition: 0.3s;
+        &:hover
+        {
+            background-color: #adadad;
+        }
+    }
 }
 
 @media only screen and (min-width: 992px) {

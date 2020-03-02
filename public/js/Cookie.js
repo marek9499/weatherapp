@@ -4,6 +4,7 @@ export function get(name) {
         const cookieName = cookies[i].split("=")[0].trim();
         const cookieKey = cookies[i].split("=")[1];
         if (cookieName == name) {
+            //callback(cookieKey);
             return cookieKey;
         }
     }

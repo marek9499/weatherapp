@@ -1,9 +1,20 @@
 import * as Request from './Request.js';
+import * as Cookie from './Cookie.js';
 
+/*
+If the user visits page for the first time
+*/
 if (document.cookie.indexOf('weatherLocation') == -1) {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(onServiceSuccess, onServiceError);
     }
+}
+else {
+    /*
+    And the every next time...
+    */
+    const currentCity = JSON.parse(Cookie.get('weatherLocation')).city;
+    Request.collectWeatherData(currentCity);
 }
 
 async function onServiceSuccess(data) {
@@ -19,7 +30,9 @@ async function onServiceSuccess(data) {
         lat: latitude,
         lot: longitude
     }
-    console.log('zapisuje ciastka')
+
+    Request.collectWeatherData(currentCity);
+
     document.cookie = `weatherLocation=${JSON.stringify(weatherData)}; path=/; expires=Tue, 19 Jan 2038 03:14:07 GMT`;
 }
 
