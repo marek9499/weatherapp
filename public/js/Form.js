@@ -1,4 +1,5 @@
 import * as Cookie from './Cookie.js';
+import * as Request from './Request.js';
 
 const lastSearchedCities = Cookie.get("lastSearchedCities") ? Cookie.get("lastSearchedCities").split(",") : undefined;
 console.log(lastSearchedCities);
@@ -20,16 +21,16 @@ window.addEventListener("DOMContentLoaded", () => {
             }
             citiesArray.push(cityName);
             Cookie.set("lastSearchedCities", citiesArray, 365);
-
-            const btn = document.createElement('button');
-            btn.setAttribute('class', 'weather__city btn btn-white');
-            btn.textContent = cityName;
-            document.querySelector('.weather__cities').appendChild(btn);
         }
+
+        const btn = document.createElement('button');
+        btn.setAttribute('class', 'weather__city btn btn-white');
+        btn.textContent = cityName;
+        document.querySelector('.weather__cities').appendChild(btn);
     });
 
     /*
-    Let's render previously searched cities
+    Let's render previously searched cities, if there are :D
     */
 
     if (lastSearchedCities != undefined) {
@@ -40,4 +41,15 @@ window.addEventListener("DOMContentLoaded", () => {
             document.querySelector('.weather__cities').appendChild(btn);
         }
     }
+
+    /*
+    User clicks a button with city name
+    */
+
+    document.querySelectorAll('button').forEach(el => {
+        el.addEventListener("click", event => {
+            const cityName = event.target.innerText;
+            Request.collectWeatherData(cityName);
+        })
+    })
 });
