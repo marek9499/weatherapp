@@ -18,10 +18,6 @@ router.get('/:city/now', (req, res) => {
     });
 });
 
-/*
-we pass 
-*/
-
 router.get('/:city/hourly', (req, res) => {
     const city = req.params.city;
 
@@ -33,7 +29,6 @@ router.get('/:city/hourly', (req, res) => {
     });
 });
 
-
 router.get('/weather/:city', (req, res) => {
     axios({
         method: 'get',
@@ -43,11 +38,6 @@ router.get('/weather/:city', (req, res) => {
     });
 });
 
-
-/*
-weather for now
-*/
-
 router.post('/weather', (req, res) => {
     axios({
         method: 'get',
@@ -56,18 +46,5 @@ router.post('/weather', (req, res) => {
         res.json(response.data);
     });
 });
-
-
-
-router.get('/dupa/:city', (req, res) => {
-    res.send("OK" +encodeURIComponent(req.params.city));
-});
-
-
-
-
-
-
-
 
 module.exports = router;
