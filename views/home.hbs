@@ -28,7 +28,7 @@
 			<section class="weather">
 				<div class="weather__box weather__check">
 					<p class="weather__checkText">SPRAWDŹ POGODĘ</p>
-					<form action="http://127.0.0.1:5500/api/weather" method="POST">
+					<form action="http://127.0.0.1:{{appPort}}/api/weather" method="POST">
 						<input type="text" placeholder="wpisz nazwę miasta" class="weather__input"
 							name="weather__cityname">
 					</form>

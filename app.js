@@ -21,8 +21,7 @@ app.use('/public', express.static('public'))
 app.get('/', function (req, res, next) {
     res.render('home.hbs',
         {
-            showTitle: true,
-            foo: "cześć, działa :D"
+            appPort: port
         });
 });
 
