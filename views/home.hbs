@@ -91,11 +91,11 @@
 
 		window.addEventListener("DOMContentLoaded", event => {
 
-			document.querySelector("form").addEventListener("submit", e => {
+			document.querySelector("form").addEventListener("submit", async e => {
 				e.preventDefault();
 
 				let inputCity = document.querySelector(".weather__input").value;
-				fetch(e.target.action,
+				const request = await fetch(e.target.action,
 					{
 						method: "POST",
 						headers:
@@ -104,14 +104,17 @@
 							'Content-Type': 'application/json'
 						},
 						body: JSON.stringify({ weather__cityname: inputCity })
-					})
-					.then(resp => resp.json())
-					.then(data => DOM.fillWeatherInfo(data))
-					.then(
-						Request
-							.getShortWeatherData(inputCity)
-							.then(data => DOM.prepareChartData(data))
-					);
+					});
+
+				(async function () {
+					const data = await request.json();
+					await DOM.fillWeatherInfo(data);
+				})();
+
+				(async function () {
+					const shortData = await Request.getShortWeatherData(inputCity);
+					await DOM.prepareChartData(shortData);
+				})();
 			});
 		});
 
