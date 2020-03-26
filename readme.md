@@ -4,7 +4,7 @@
 
 ## Użyte technologie
 
-**HTML5**, **CSS (BEM, SCSS, OOCSS)**, **JS**, **NODEJS**, **EXPRESS (ROUTING)**, **HANDLEBARS**
+HTML5, CSS (BEM, SCSS, OOCSS), JS, NODEJS, EXPRESS (ROUTING), HANDLEBARS
 
 ## Opis
 
@@ -14,11 +14,7 @@ użytkownik na każdej rozdzielczości mógł sprawdzić jej działanie. W aplik
 ## Struktura
 
 ```
-│   .gitignore
 │   app.js
-│   package-lock.json
-│   readme.md
-│   tree.txt
 │   
 ├───js
 │       config.js
