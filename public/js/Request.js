@@ -7,13 +7,13 @@ export async function getCityByPosition(param) {
 }
 
 export async function getShortWeatherData(city) {
-    let resp = await fetch(`http://127.0.0.1:5500/api/${city}/hourly`);
+    let resp = await fetch(`http://127.0.0.1:5501/api/${city}/hourly`);
     let data = await resp.json();
     return Promise.resolve(data);
 }
 
 export async function getExtendedWeatherDataNow(city) {
-    let resp = await fetch(`http://127.0.0.1:5500/api/weather/${city}`);
+    let resp = await fetch(`http://127.0.0.1:5501/api/weather/${city}`);
     let data = await resp.json();
     return Promise.resolve(data);
 }

@@ -3,7 +3,7 @@ const expbs = require('express-handlebars');
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser');
 const routes = require('./routes/api')
-const port = process.env.port = 5500
+const port = process.env.port = 5501
 const app = express()
 
 app.set('view engine', '.hbs');
