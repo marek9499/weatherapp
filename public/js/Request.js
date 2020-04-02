@@ -1,5 +1,7 @@
 import * as DOM from './DOM.js';
 
+const sitePort = location.port ? ":" + location.port : location.port;
+
 export async function getCityByPosition(param) {
     let resp = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${param.lat}&lon=${param.lot}`);
     let data = await resp.json();
@@ -7,13 +9,13 @@ export async function getCityByPosition(param) {
 }
 
 export async function getShortWeatherData(city) {
-    let resp = await fetch(`http://127.0.0.1:5501/api/${city}/hourly`);
+    let resp = await fetch(`http://127.0.0.1${sitePort}/api/${city}/hourly`);
     let data = await resp.json();
     return Promise.resolve(data);
 }
 
 export async function getExtendedWeatherDataNow(city) {
-    let resp = await fetch(`http://127.0.0.1:5501/api/weather/${city}`);
+    let resp = await fetch(`http://127.0.0.1${sitePort}/api/weather/${city}`);
     let data = await resp.json();
     return Promise.resolve(data);
 }
@@ -26,15 +28,3 @@ export async function collectWeatherData(city)
     const extendeddata = await getExtendedWeatherDataNow(city)
     await DOM.fillWeatherInfo(extendeddata);
 }
-
-/*
-export function collectWeatherData(city) {
-    getShortWeatherData(city)
-        .then(data => DOM.prepareChartData(data))
-        .catch(ex => console.log('error', ex));
-
-    getExtendedWeatherDataNow(city)
-        .then(data => DOM.fillWeatherInfo(data))
-        .catch(ex => console.log('error2', ex));
-}
-*/
