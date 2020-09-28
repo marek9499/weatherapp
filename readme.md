@@ -15,7 +15,8 @@ użytkownik na każdej rozdzielczości mógł sprawdzić jej działanie. W aplik
 ```
 node app.js port
 ```
-W miejscu port wpisujemy port i przechodzimy na 127.0.0.1:port 💻
+W miejscu 'port' wpisujemy port strony 💻
+Gdy nie wpiszemy portu, system automatycznie spróbuje uruchomić aplikację na domyślnym :5000
 
 ## Struktura
 
