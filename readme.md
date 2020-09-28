@@ -11,6 +11,12 @@ HTML5, CSS (BEM, SCSS, OOCSS), JS, NODEJS, EXPRESS (ROUTING), HANDLEBARS
 Aplikacja napisana w ramach nauki backendu, zarówno jak i frontendu. Strona, jak przystało na obecne standardy, została stworzona przede wszystkim na urządzenia mobilne aby
 użytkownik na każdej rozdzielczości mógł sprawdzić jej działanie. W aplikacji wykorzystałem technologie, których działanie jak najbardziej jestem w stanie zrozumieć i opisać dlaczego coś jest skonstruowane tak, a nie inaczej. <br> Przy pierwszym wejściu użytkownik jest proszony o udostępnienie lokalizacji aby aplikacja mogła działać zgodnie z przeznaczeniem. Po pomyślnym udzieleniu dostepu zapisuję bieżącą lokalizację do **localStorage** aby za ponownym wejściem nie prosić o dane jeszcze raz. Używając odpowiednego API konwertuję koordynaty na nazwę miasta rzecz jasna 😃. Oprócz tego mamy możliwość manualnego wpisania miasta, które jest zapisywane i pokaże się w ostatnio wyszukiwanych. Maksymalnie pokazują się ostatnio 4 wyszukiwane miasta. Mamy również możliwość skorzystania z trybu ciemnego. Pokusiłem się o skorzystanie z biblioteki **ChartJS** aby renderować wykres temperatury na najbliższe 24 godziny.
 
+## Sprawdź sam!
+```
+node app.js port
+```
+W miejscu port wpisujemy port i przechodzimy na 127.0.0.1:port 💻
+
 ## Struktura
 
 ```
