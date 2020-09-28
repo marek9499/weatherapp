@@ -31,21 +31,23 @@ function createChart(data) {
         data: {
             labels: weatherData.hours,
             datasets: [{
-                label: 'temperatura',
-                data: weatherData.temps,
-                backgroundColor: 'red',
-                borderColor: 'orange',
-                fill: false
-            },
-            {
-                label: 'odczuwalna',
-                data: weatherData.tempFeelsLike,
-                backgroundColor: 'orange',
-                borderColor: 'red',
-                fill: false
-            }]
+                    label: 'temperatura',
+                    data: weatherData.temps,
+                    backgroundColor: 'red',
+                    borderColor: 'orange',
+                    fill: false
+                },
+                {
+                    label: 'odczuwalna',
+                    data: weatherData.tempFeelsLike,
+                    backgroundColor: 'orange',
+                    borderColor: 'red',
+                    fill: false
+                }
+            ]
         },
         options: {
+            maintainAspectRatio: false,
             responsive: true,
             showTooltips: true,
             scales: {
