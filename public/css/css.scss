@@ -78,8 +78,7 @@ video {
 
 @font-face {
     font-family: Lato2;
-    src: url("../fonts/Lato-Regular.ttf") format("truetype"),
-    url("../fonts/Lato-Regular.woff2") format("woff");
+    src: url("../fonts/Lato-Regular.ttf") format("truetype"), url("../fonts/Lato-Regular.woff2") format("woff");
     font-style: normal;
 }
 
@@ -94,7 +93,6 @@ header {
     width: 100%;
     background-color: white;
     box-shadow: 0px -3px 23px -1px rgba(0, 0, 0, 0.75);
-
     h1 {
         font-size: 20px;
     }
@@ -102,8 +100,8 @@ header {
 
 .header {
     &__container {
-        > div {
-            > * {
+        >div {
+            >* {
                 margin: 20px;
             }
         }
@@ -117,7 +115,7 @@ header {
 }
 
 .icons {
-    > div {
+    >div {
         background-size: 100% 100%;
     }
     &--rainy {
@@ -131,30 +129,29 @@ header {
         }
     }
     &--bigger {
-        > div {
+        >div {
             width: 65px;
             height: 65px;
         }
     }
     &--smaller {
-        > div {
+        >div {
             width: 25px;
             height: 25px;
         }
     }
 }
 
-.darkmode
-{
-    body
-    {
+.darkmode {
+    body {
         background-color: black;
     }
-    .wrapper, header
-    {
+    .wrapper,
+    header {
         filter: invert(1);
     }
 }
+
 .weather {
     display: flex;
     flex-direction: column;
@@ -162,7 +159,6 @@ header {
         font-weight: bold;
         font-size: 17px;
     }
-
     &__input {
         box-sizing: border-box;
         border: none;
@@ -178,14 +174,12 @@ header {
             color: #3b3b3b;
         }
     }
-
     &__box {
         margin: 20px;
         &:nth-child(2) {
             background-color: white;
         }
     }
-
     &__cities {
         margin-top: 10px;
         display: flex;
@@ -193,23 +187,19 @@ header {
         flex-wrap: wrap;
         justify-content: space-between;
     }
-
     &__city {
         flex: 0 45%;
         //margin-top: 15px;
-        &:not(:last-child)
-        {
+        &:not(:last-child) {
             margin-top: 10px;
         }
     }
-
     &__date {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         flex-wrap: wrap-reverse;
     }
-
     &__town {
         display: flex;
         flex-direction: row;
@@ -217,11 +207,9 @@ header {
         flex-wrap: wrap;
         align-items: flex-start;
     }
-
     &__currentCity {
         font-size: 35px;
     }
-
     &__moreinfo {
         padding: 20px;
         display: flex;
@@ -230,11 +218,9 @@ header {
         border-bottom-left-radius: 20px;
         border-bottom-right-radius: 20px;
     }
-
     &__dateCityInfo {
         color: #9d9d9d;
     }
-
     &__dateTime {
         font-weight: bold;
     }
@@ -254,25 +240,21 @@ header {
             margin-top: 20px;
         }
     }
-
     &__desc {
         font-size: 17px;
         //font-weight: bold;
     }
-
     &__info {
         //margin-top: 10px;
         font-size: 30px;
         font-weight: bold;
-        span
-        {
+        span {
             font-size: 20px;
         }
     }
 }
 
-.chart
-{
+.chart {
     margin-top: 20px;
 }
 
@@ -287,8 +269,7 @@ header {
     white-space: nowrap;
 }
 
-.btn-white
-{
+.btn-white {
     background-color: white;
 }
 
